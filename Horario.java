@@ -6,25 +6,25 @@ import java.util.ArrayList;
   * @author Ian (22128)
   * @version 1.0
   */
- 
+
 
 public class Horario {
 
-    // atributos 
+    // atributos
     private ArrayList<Intervalo> intervalos;
-
-    // meteodos 
+    String numero_Carne;
+    // meteodos
 
     /** Horario es el contrustor de la clase; no tiene parametros
      * @return al ser constructor, no tiene retorno
      */
 
     public Horario() {
-    
+
         intervalos = new ArrayList<Intervalo>();
     }
 
-    /** Agregarintervalo es un metodo que agrega un intervalo al array de intervalos 
+    /** Agregarintervalo es un metodo que agrega un intervalo al array de intervalos
      * @param fecha es la fecha en que se va a realizar la cita
      * @param horainicio es la hora de inicio de la cita
      * @param horafinal es la hora en que termina la reunion
@@ -33,7 +33,17 @@ public class Horario {
      */
 
      public void Agregarintervalo() {
-         
+
+     }
+     //get de numero_Carne
+     public String getnocarnet(){
+       return this.numero_Carne;
+     }
+
+     //set de numero_Carne
+
+     public void Setnocarnet(String car){
+       this.numero_Carne = car;
      }
 
 }

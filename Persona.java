@@ -5,13 +5,28 @@
  */
 public abstract class Persona {
 
-    // atributos 
+    // atributos
     protected String nombre;
     protected String correo;
     protected String nocarnet;
     protected Horario agenda;
-    
-    // metodos 
+
+    //constructor (para creo una nueva persona)
+    public Persona(String nombre, String correo, String nocarnet){
+      this.nombre = nombre;
+      this.correo = correo;
+      this.nocarnet = nocarnet;
+    }
+
+    //constructor (para la Persistencia)
+    public Persona(String nombre, String correo, String nocarnet, Horario agenda){
+      this.nombre = nombre;
+      this.correo = correo;
+      this.nocarnet = nocarnet;
+      this.agenda = agenda;
+    }
+
+    // metodos
 
     // set y get nombre
     public void Setnombre(String nombre) {
@@ -39,7 +54,7 @@ public abstract class Persona {
     public String getnocarnet() {
         return this.nocarnet;
     }
-    
+
     // set  y get agenda
     public void Setagenda(Horario agenda) {
         this.agenda = agenda;
@@ -55,8 +70,11 @@ public abstract class Persona {
      * @param horafinal es un entero que indica la hora en que finaliza la cita
      * @return void.
      */
-    
+
      public void Agendarcita(Persona persona, int horainicio, int horafinal) {
-         
+
      }
+    public String toString(){ // E; nombre; correo; Numero_Carné;
+      return this.nombre + ";" + this.correo + ";" + this.nocarnet;
+    }
 }

@@ -2,15 +2,15 @@ public class Intervalo {
 	 private int horarioInicio;
 	  private int horarioFin;
 	  private Persona persona;
-	  private bolean estado;
+	  private int estado;
 
 
-	  public Intervalo(int horarioInicio, int horarioFin, Persona persona, bolean estado) {
+	  public Intervalo(int horarioInicio, int horarioFin, Persona persona, int estado) {
 		super();
 		this.horarioInicio = horarioInicio;
 		this.horarioFin = horarioFin;
 		this.persona = persona;
-		this.estado = estado;
+		this.estado = estado; // 0: libre, 1: ocupado, 2: anulado
 	}
 
 
@@ -54,13 +54,13 @@ public class Intervalo {
 
 
 
-	public bolean getEstado() {
+	public int getEstado() {
 		return estado;
 	}
 
 
 
-	public void setEstado(bolean estado) {
+	public void setEstado(int estado) {
 		this.estado = estado;
 	}
 
