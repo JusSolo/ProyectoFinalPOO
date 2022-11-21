@@ -11,8 +11,8 @@ import java.util.ArrayList;
 public class Horario {
 
     // atributos
-    private ArrayList<Intervalo> intervalos;
-    String numero_Carne;
+    private ArrayList<Intervalo> listaintervalos;
+    //String numero_Carne;
     // meteodos
 
     /** Horario es el contrustor de la clase; no tiene parametros
@@ -20,21 +20,20 @@ public class Horario {
      */
 
     public Horario() {
-
-        intervalos = new ArrayList<Intervalo>();
+      // inicializamos el array de intervalos
+      listaintervalos = new ArrayList<Intervalo>();
     }
 
     /** Agregarintervalo es un metodo que agrega un intervalo al array de intervalos
-     * @param fecha es la fecha en que se va a realizar la cita
-     * @param horainicio es la hora de inicio de la cita
-     * @param horafinal es la hora en que termina la reunion
-     * @param Persona es la persona con quien se va a tener la cita
+     * @param intervalo es el intervalo a agregar
      * @return void
      */
 
-     public void Agregarintervalo() {
-
+     public void Agregarintervalo(Intervalo intervalo) {
+      this.listaintervalos.add(intervalo);
      }
+
+
      //get de numero_Carne
      public String getnocarnet(){
        return this.numero_Carne;
