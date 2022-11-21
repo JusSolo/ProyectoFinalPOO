@@ -11,8 +11,8 @@ public class Intervalo {
 	private int horafinal;
 	private String fecha;
 	private boolean estado;
-	//private Catedratico catedratico;
-	//private Estudiante estudiante;
+	private String idcatedratico;
+	private String idestudiante;
 	private String curso;
 
 	// metodos
@@ -21,17 +21,17 @@ public class Intervalo {
 	 * @param horainicio es un int que indica la hora de inicio de la reunion
 	 * @param horafinal es un int que indica la hora en que finaliza la reunion
 	 * @param fecha es un String que indica la fecha en que se realizara la reunion
-	 * @param catedratico es un objeto de tipo Catedratico que representa al catedratico que estara en la reunion
-	 * @param estudiante es un objeto de tipo Estudiante que representa al estudiante que estara en la reunion
+	 * @param idcatedratico es un String que representa el id del catedratico
+	 * @param idestudiante es un String que representa el id del estudiante
 	 * @param curso es un String que representa el curso a tratar en la reunion
 	 */
 
-	 public  Intervalo(int horainicio, int horafinal, String fecha, Catedratico catedratico, Estudiante estudiante, String curso) {
+	 public  Intervalo(int horainicio, int horafinal, String fecha, String idcatedratico, String idestudiante, String curso) {
 		 this.horainicio = horainicio;
 		 this.horafinal = horafinal;
 		 this.fecha = fecha;
-		 //this.catedratico = catedratico;
-		 //this.estudiante = estudiante;
+		 this.idcatedratico = idcatedratico;
+		 this.idestudiante = idestudiante;
 		 this.curso = curso;
 	 }
 
@@ -62,23 +62,23 @@ public class Intervalo {
 		 return this.fecha;
 	 }
 
-	 /*// set y get catedratico
-	 public void Setcatedratico(Catedratico catedratico) {
-		 this.catedratico = catedratico;
+	 // set y get idcatedratico
+	 public void Setidcatedratico(String idcatedratico) {
+		 this.idcatedratico = idcatedratico;
 	 }
 
-	 public Catedratico getcatedratico() {
-		 return this.catedratico;
-	 }*/
-
-	 /*// set y get estudiante
-	 public void Setestudiante(Estudiante estudiante) {
-		 this.estudiante = estudiante;
+	 public String Getidcatedratico() {
+		 return this.idcatedratico;
 	 }
 
-	 public Estudiante Getestudiante() {
-		 return this.estudiante;
-	 }*/
+	 // set y get idestudiante 
+	 public void Setidestudiante(String idestudiante) {
+		 this.idestudiante = idestudiante;
+	 }
+
+	 public String Getidestudiante() {
+		 return this.idestudiante;
+	 }
 
 	 // set y get curso
 	 public void Setcurso(String curso) {

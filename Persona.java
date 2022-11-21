@@ -3,13 +3,13 @@ import java.util.ArrayList;
 /**
  * Persona es una clase abstracta que tiene los atributos y metodos comunes a los catedraticos y estudiantes
  * @author Leonel Contreras 18797
+ * @author Ian Castellanos 22128
  * @version 1.0
  */
 public abstract class Persona {
 
     // atributos
     protected String nombre;
-    protected String correo;
     protected String nocarnet;
     protected ArrayList<Intervalo> agenda;
     protected String contrasena;
@@ -31,17 +31,13 @@ public abstract class Persona {
     public Persona(String nombre, String correo, String nocarnet, String contrasena){
         // asignamos valores a los atributos de la clase
         this.nombre = nombre;
-        this.correo = correo;
         this.nocarnet = nocarnet;
         this.contrasena = contrasena;
-        // inicializamos la agenda de la persona
-        //this.agenda = new Horario();
     }
 
     //constructor (para la Persistencia)
     public Persona(String nombre, String correo, String nocarnet){
       this.nombre = nombre;
-      this.correo = correo;
       this.nocarnet = nocarnet;
       this.agenda = new ArrayList<Intervalo>();
     }
@@ -55,15 +51,6 @@ public abstract class Persona {
         return this.nombre;
     }
 
-    // set y get correo
-    public void Setcorreo(String correo) {
-        this.correo = correo;
-    }
-
-    public String Getcorreo() {
-        return this.correo;
-    }
-
     // set y get nocarnet
     public void Setnocarnet(String nocarnet) {
         this.nocarnet = nocarnet;
@@ -73,9 +60,18 @@ public abstract class Persona {
         return this.nocarnet;
     }
 
+    // set y get contrasena
+   public void Setcontrasena(String contrasena) {
+       this.contrasena = contrasena;
+   }
+
+   public String Getcontrasena() {
+       return this.contrasena;
+   }
+
 
     /** Agendarcita es un metodo abstracto que permite a la persona agendar una cita. Se delega a las clases hijas determinar
-     * las instrucciones al metodo.
+     * las instrucciones del metodo.
      * Se declara abstracto ya que, aunque por el momento los estudiantes y catedraticos agendan citas de la misma forma,
      * si en el futuro se desea cambiar esto, se debe modificar unicamente una clase.
      * @param intervalo es el intervalo que representa la cita
@@ -106,7 +102,9 @@ public abstract class Persona {
 
           // recorremos la agenda de la persona
           for (Intervalo intervalo : this.agenda) {
+              // validamos si coinciden las fechas
               if (intervalo.Getfecha().equals(fecha)) {
+                  // si las fechas coinciden, se agrega el intervalo al arraylist
                   citasenfecha.add(intervalo);
               }
           }
@@ -114,7 +112,49 @@ public abstract class Persona {
           return citasenfecha;
       }
 
-    public String toString(){ // E; nombre; correo; Numero_Carné;
+      /** Validarcita es un metodo que determina que si la cita interfiere con otras
+       * @param horainicio
+       * @param horafinal
+       * @return void
+       * @throws IterferenciaDeCitaException
+       */
+
+       public void Validarcita(int horainicio, int horafinal) throws InterferenciaDeCitaException{
+           for (Intervalo intervalo : agenda) {
+               if (horainicio<intervalo.Gethorafinal() && intervalo.Gethorafinal()<horafinal) {
+                   throw new InterferenciaDeCitaException("No es posible realizar la cita con el horario ingresado");
+               }
+
+               if (horainicio<intervalo.Gethorainicio() && intervalo.Gethorainicio()<horafinal) {
+                   throw new InterferenciaDeCitaException("No es posible realizar la cita con el horario ingresado");
+               }
+
+               if (intervalo.Gethorainicio()<horainicio && horafinal<intervalo.Gethorafinal()) {
+                   throw new InterferenciaDeCitaException("No es posible realizar la cita con el horario ingresado");
+               }
+           }
+       }
+
+       /** Validarcontrasena es un metodo que valida la contrasena del usuario
+        * @param contrasena es un String que representa el input del usuario
+        * @return void
+        * @throws ContrasenaNoValidaException
+        */
+
+        public void Validarcontrasena(String contrasena) throws ContrasenaNoValidaException{
+            boolean valida = false;
+
+            if (contrasena.equals(this.Getcontrasena())) {
+                valida = true;
+            }
+
+            if (valida== false) {
+                throw new ContrasenaNoValidaException("La contrasena ingresada no es valida");
+            }
+        }
+
+      // eliminamos el correo!!!!
+    /*public String toString(){ // E; nombre; correo; Numero_Carné;
       return this.nombre + ";" + this.correo + ";" + this.nocarnet;
-    }
+    }*/
 }
