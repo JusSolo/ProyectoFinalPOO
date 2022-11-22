@@ -24,23 +24,23 @@ public abstract class Persona {
 
     /** Persona es el constructor de la clase. Hace overloading al metodo anterior
      * @param nombre
-     * @param correo
      * @param nocarnet
      * @param contrasena
      */
-    public Persona(String nombre, String correo, String nocarnet, String contrasena){
+    public Persona(String nombre, String nocarnet, String contrasena){
         // asignamos valores a los atributos de la clase
         this.nombre = nombre;
         this.nocarnet = nocarnet;
         this.contrasena = contrasena;
+        this.agenda = new ArrayList<Intervalo>();
     }
 
-    //constructor (para la Persistencia)
+    /*//constructor (para la Persistencia)
     public Persona(String nombre, String correo, String nocarnet){
       this.nombre = nombre;
       this.nocarnet = nocarnet;
       this.agenda = new ArrayList<Intervalo>();
-    }
+    }*/
 
     // set y get nombre
     public void Setnombre(String nombre) {
@@ -112,15 +112,27 @@ public abstract class Persona {
           return citasenfecha;
       }
 
-      /** Validarcita es un metodo que determina que si la cita interfiere con otras
-       * @param horainicio
-       * @param horafinal
+      /** Getcita es un metodo que dado un arraylist de citas y la posicion que ocupa en esa lista la cita, retorna un objeto 
+       * de tipo intervalo que representa la cita
+       * @param listacitasfecha
+       * @param posicion 
+       * @return un objeto de tipo intervalo que representa la cita
+        */
+
+        public Intervalo Getcita(ArrayList<Intervalo> listacitasfecha, int posicion) {
+           return listacitasfecha.get(posicion); 
+        }
+
+      /** Validarcita es un metodo que determina que si la cita interfiere con otras citas agendadas en una fecha particular
+       * @param horainicio es un int que indica la hora de inicio de la cita a crear
+       * @param horafinal es un int que indica la hora de finalizacion de la cita a crea
+       * @param listacitasfecha es un ArrayList con todas las citas en una fecha particular
        * @return void
        * @throws IterferenciaDeCitaException
        */
 
-       public void Validarcita(int horainicio, int horafinal) throws InterferenciaDeCitaException{
-           for (Intervalo intervalo : agenda) {
+       public void Validarcita(int horainicio, int horafinal, ArrayList<Intervalo> listacitasfecha) throws InterferenciaDeCitaException{
+           for (Intervalo intervalo : listacitasfecha) {
                if (horainicio<intervalo.Gethorafinal() && intervalo.Gethorafinal()<horafinal) {
                    throw new InterferenciaDeCitaException("No es posible realizar la cita con el horario ingresado");
                }
@@ -130,6 +142,10 @@ public abstract class Persona {
                }
 
                if (intervalo.Gethorainicio()<horainicio && horafinal<intervalo.Gethorafinal()) {
+                   throw new InterferenciaDeCitaException("No es posible realizar la cita con el horario ingresado");
+               }
+
+               if (intervalo.Gethorainicio()==horainicio && intervalo.Gethorafinal()==horafinal) {
                    throw new InterferenciaDeCitaException("No es posible realizar la cita con el horario ingresado");
                }
            }
