@@ -8,11 +8,11 @@ import java.io.*;
 public class Persistencia {
  //Nota importante es Necesario ejecutar en el Principal Primero cargarHorarios y Luego CargarPersona
 
-  List<Persona> personas = new ArrayList<Persona>();
+  ArrayList<Persona> personas = new ArrayList<Persona>();
 
 
   // ete metodo es para cargare en el progarama a las personas del archivo
-  public void cargarPersonas(){
+  public ArrayList<Persona> cargarPersonas(){
       String nombreFichero = "personas.txt";
       // Declarar una variable BufferedReader
       BufferedReader br = null;
@@ -88,12 +88,13 @@ public class Persistencia {
               ex.printStackTrace();
           }
       }
+   return personas;
   }
 
   // Este es el metodo para guardar en archivo todo lo modificado
-  public void guardarPersona(){
+  public void guardarPersona(ArrayList<Persona> p){
     //Un texto cualquiera guardado en una variable
-
+    this.personas = p;
     try {
         //Crear un objeto File se encarga de crear o abrir acceso a un archivo que se especifica en su constructor
         File archivo = new File("personas.txt");
