@@ -1,12 +1,17 @@
 import java.util.*;
 import java.io.*;
+/**
+ * Persistencis es una clase s¿que se encarga exclusivamente de la persistencia
+ * @autor Juan Luis Solórzano 201598
+ * @version 1.0
+ */
 public class Persistencia {
  //Nota importante es Necesario ejecutar en el Principal Primero cargarHorarios y Luego CargarPersona
 
   List<Persona> personas = new ArrayList<Persona>();
-  List<Horario> horarios = new ArrayList<Horario>();
 
-  // ete metodo es para cargare en el progarama a las personas del arcgivo
+
+  // ete metodo es para cargare en el progarama a las personas del archivo
   public void cargarPersonas(){
       String nombreFichero = "personas.txt";
       // Declarar una variable BufferedReader
@@ -21,28 +26,36 @@ public class Persistencia {
           while(texto != null) {
               // Hacer lo que sea con la línea leída
               //Formato de los datos en el archivo
-              // E; nombre; correo; Numero_Carné; \n la E es de estudiante y la C de catedrático
+              // E; nombre; Numero_Carné; contraseña ; intervalo1String ; intervalo2;string ..... i \n la E es de estudiante y la C de catedrático
               String[] datos = texto.split(";");
               String nombre = datos[1];
-              String correo = datos[2];
-              String Numero_Carne = datos[3];
-              Horario h = horarios.get(0);// Solo es para instancear h con algo
-              for (Horario H : horarios){
-                if (Numero_Carne  == H.getnocarnet()){
-                  h = H;
-                  break;
-                }
+              String Numero_Carne = datos[2];
+              String contrasena = datos[3];
+              // crear todos los intervalos de las personas
+              ArrayList<Intervalo> agenda = new ArrayList<Intervalo>();
+              Intervalo intervalo;
+              for (int i = 4; i < datos.length; i += 7){
+                int horainicio = Integer.parseInt(datos[i]);
+              	int horafinal  = Integer.parseInt(datos[i+1]);
+              	String fecha = datos[i+2];
+              	boolean estado = (datos[i+3] == "true");
+              	String idcatedratico =  datos[i+4];
+              	String idestudiante = datos[i+5];;
+              	String curso = datos[i+6];
+                intervalo = new Intervalo( horainicio, horafinal, fecha, idcatedratico, idestudiante, curso, estado);
+                agenda.add(intervalo);
               }
+
 
               switch(datos[0]){
 
                 case "E": //Estudiante
-                  Estudiante e = new Estudiante(nombre, correo, Numero_Carne, h);
+                  Estudiante e = new Estudiante(nombre, Numero_Carne, contrasena, agenda);
                   personas.add(e);
                 break;
 
                 case "C": //catedrático
-                Catedratico c = new Catedratico(nombre, correo, Numero_Carne, h);
+                Catedratico c = new Catedratico(nombre, Numero_Carne, contrasena, agenda);
                 personas.add(c);
                 break;
               }

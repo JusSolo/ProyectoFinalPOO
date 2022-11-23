@@ -17,7 +17,7 @@ public class Intervalo {
 
 	// metodos
 
-	/** Intervalo es el constructor de la clase. 
+	/** Intervalo es el constructor de la clase.
 	 * @param horainicio es un int que indica la hora de inicio de la reunion
 	 * @param horafinal es un int que indica la hora en que finaliza la reunion
 	 * @param fecha es un String que indica la fecha en que se realizara la reunion
@@ -34,6 +34,26 @@ public class Intervalo {
 		 this.idestudiante = idestudiante;
 		 this.curso = curso;
 	 }
+	 //constructor (para la Persistencia) (esto es sobrecarga)
+	 /** Intervalo es el constructor de la clase.
+		* @param horainicio es un int que indica la hora de inicio de la reunion
+		* @param horafinal es un int que indica la hora en que finaliza la reunion
+		* @param fecha es un String que indica la fecha en que se realizara la reunion
+		* @param idcatedratico es un String que representa el id del catedratico
+		* @param idestudiante es un String que representa el id del estudiante
+		* @param curso es un String que representa el curso a tratar en la reunion
+		* @param estado del intervalo
+		*/
+
+		public  Intervalo(int horainicio, int horafinal, String fecha, String idcatedratico, String idestudiante, String curso, boolean estado) {
+			this.horainicio = horainicio;
+			this.horafinal = horafinal;
+			this.fecha = fecha;
+			this.idcatedratico = idcatedratico;
+			this.idestudiante = idestudiante;
+			this.curso = curso;
+			this.estado = estado;
+		}
 
 	 // set y get hora inicio
 	 public void Sethorainicio(int horainicio) {
@@ -53,7 +73,7 @@ public class Intervalo {
 		 return this.horafinal;
 	 }
 
-	 // set y get fecha 
+	 // set y get fecha
 	 public void Setfecha(String fecha) {
 		 this.fecha = fecha;
 	 }
@@ -71,7 +91,7 @@ public class Intervalo {
 		 return this.idcatedratico;
 	 }
 
-	 // set y get idestudiante 
+	 // set y get idestudiante
 	 public void Setidestudiante(String idestudiante) {
 		 this.idestudiante = idestudiante;
 	 }
@@ -97,4 +117,8 @@ public class Intervalo {
 	 public boolean Getestado() {
 		 return this.estado;
 	 }
+	 // to string necesario para la persistencia
+	 public String toString(){
+		 return  horainicio + ";" +  horafinal + ";" + fecha + ";" + idcatedratico + ";" + idestudiante + ";" + curso + ";" + estado;
+	 	 }
 }
