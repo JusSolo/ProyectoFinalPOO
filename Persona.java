@@ -1,10 +1,11 @@
+
+
 import java.util.ArrayList;
 
 /**
  * Persona es una clase abstracta que tiene los atributos y metodos comunes a los catedraticos y estudiantes
  * @author Leonel Contreras 18797
  * @author Ian Castellanos 22128
- * @autor Juan Luis Solórzano 201598
  * @version 1.0
  */
 public abstract class Persona {
@@ -20,7 +21,7 @@ public abstract class Persona {
      */
 
      public  Persona() {
-
+         
      }
 
     /** Persona es el constructor de la clase. Hace overloading al metodo anterior
@@ -33,14 +34,9 @@ public abstract class Persona {
         this.nombre = nombre;
         this.nocarnet = nocarnet;
         this.contrasena = contrasena;
-        this.agenda = new ArrayList<Intervalo>();
-    }
 
-    //constructor (para la Persistencia)
-    public Persona(String nombre, String nocarnet, String contrasena,ArrayList<Intervalo> agenda ){
-      this.nombre = nombre;
-      this.nocarnet = nocarnet;
-      this.agenda = agenda;
+        // inicializamos el arraylist
+        this.agenda = new ArrayList<Intervalo>();
     }
 
     // set y get nombre
@@ -76,14 +72,14 @@ public abstract class Persona {
      * Se declara abstracto ya que, aunque por el momento los estudiantes y catedraticos agendan citas de la misma forma,
      * si en el futuro se desea cambiar esto, se debe modificar unicamente una clase.
      * @param intervalo es el intervalo que representa la cita
-     * @return void
+     * @return void 
      */
 
      public abstract void Agendarcita(Intervalo intervalo);
+         
 
-
-    /** Cancelarcita es un metodo que permite a la persona cancelar una cita. Se delega a cada subclase determinar el
-     * procedimiento para cancelar una cita. Se declara abstrato el metodo ya que, si se desea modificar como un estudiante o
+    /** Cancelarcita es un metodo que permite a la persona cancelar una cita. Se delega a cada subclase determinar el 
+     * procedimiento para cancelar una cita. Se declara abstrato el metodo ya que, si se desea modificar como un estudiante o 
      * catedratico cancela una cita; se debe modificar tal clase y no dos.
      * @param intervalo
      * @return void
@@ -113,15 +109,15 @@ public abstract class Persona {
           return citasenfecha;
       }
 
-      /** Getcita es un metodo que dado un arraylist de citas y la posicion que ocupa en esa lista la cita, retorna un objeto
+      /** Getcita es un metodo que dado un arraylist de citas y la posicion que ocupa en esa lista la cita, retorna un objeto 
        * de tipo intervalo que representa la cita
        * @param listacitasfecha
-       * @param posicion
+       * @param posicion 
        * @return un objeto de tipo intervalo que representa la cita
         */
 
         public Intervalo Getcita(ArrayList<Intervalo> listacitasfecha, int posicion) {
-           return listacitasfecha.get(posicion);
+           return listacitasfecha.get(posicion); 
         }
 
       /** Validarcita es un metodo que determina que si la cita interfiere con otras citas agendadas en una fecha particular
@@ -134,20 +130,27 @@ public abstract class Persona {
 
        public void Validarcita(int horainicio, int horafinal, ArrayList<Intervalo> listacitasfecha) throws InterferenciaDeCitaException{
            for (Intervalo intervalo : listacitasfecha) {
-               if (horainicio<intervalo.Gethorafinal() && intervalo.Gethorafinal()<horafinal) {
-                   throw new InterferenciaDeCitaException("No es posible realizar la cita con el horario ingresado");
+               if ((intervalo.Gethorainicio()<horainicio) && (horainicio<intervalo.Gethorafinal())) {
+            
+                     
+                    throw new InterferenciaDeCitaException("No es posible realizar la cita con el horario ingresado");
                }
 
-               if (horainicio<intervalo.Gethorainicio() && intervalo.Gethorainicio()<horafinal) {
-                   throw new InterferenciaDeCitaException("No es posible realizar la cita con el horario ingresado");
+               if ((intervalo.Gethorainicio()<horafinal)&&(horafinal<intervalo.Gethorafinal())) {
+            
+                      
+                    throw new InterferenciaDeCitaException("No es posible realizar la cita con el horario ingresado");
                }
 
-               if (intervalo.Gethorainicio()<horainicio && horafinal<intervalo.Gethorafinal()) {
-                   throw new InterferenciaDeCitaException("No es posible realizar la cita con el horario ingresado");
+               if ((horainicio<intervalo.Gethorainicio())&&(intervalo.Gethorainicio()<horafinal)&&(horainicio<intervalo.Gethorafinal())&&(intervalo.Gethorafinal()<horafinal)) {
+                   
+                      
+                    throw new InterferenciaDeCitaException("No es posible realizar la cita con el horario ingresado");
                }
 
-               if (intervalo.Gethorainicio()==horainicio && intervalo.Gethorafinal()==horafinal) {
-                   throw new InterferenciaDeCitaException("No es posible realizar la cita con el horario ingresado");
+               if (horainicio== intervalo.Gethorainicio() && horafinal == intervalo.Gethorafinal()) {  
+                    
+                    throw new InterferenciaDeCitaException("No es posible realizar la cita con el horario ingresado");
                }
            }
        }
@@ -169,19 +172,4 @@ public abstract class Persona {
                 throw new ContrasenaNoValidaException("La contrasena ingresada no es valida");
             }
         }
-
-  /** toString
-   *
-   * @return String, todos los atributos de la clase
-   * @throws ContrasenaNoValidaException
-   */
-    public String toString(){ // E; nombre; correo; Numero_Carné;
-      String h = ""; // h va a contener dota la informacion de todos los intervalos
-      for (Intervalo i :agenda ){
-        h = h +  i.toString() + ";" ;
-      }
-
-      h = h.substring(0, h.length() -2); // elimina el ultimo caracter de la cadena que es un ";"
-      return this.nombre + ";" + ";" + this.nocarnet + ";" + this.contrasena + h;
-    }
 }
